@@ -71,17 +71,24 @@ class Pessoa():
 
 class Conta(Pessoa):
 	
-    def init(self, nome, endereco, cpf, contaC, contaP, conta):
+    def init(self, nome, endereco, cpf, contaC, contaP, conta, saldo):
         super().init(nome, endereco, cpf)
         self._contaC = contaC
         self._contaP = contaP
-        self._conta = 
+        self._conta = conta
+        self._saldo = saldo
 
     def getConta(self):
         return self._conta
 
     def setConta(self, conta):
         self._conta = conta
+        
+    def getSaldo(self):
+        return self._saldo
+
+    def setSaldo(self, saldo):
+        self._conta = saldo
 
     def getContaC(self):
         return self._contaC
@@ -102,9 +109,7 @@ class Conta(Pessoa):
         contaC = float(input("Informe o Saldo inicial da conta Corrente: "))
         contaP = float(input("Informe o Saldo inicial da conta Poupança: "))
         saldo = contaC + contaP
-        #contas = Conta(contaC, contaP, conta)
-        #usuario = Pessoa(nome, endereco, cpf)
-        #pessoa = usuario, contas
+
         conta = nome, endereco, cpf, contaC, contaP, saldo
         self.getConta().append(conta)
 
@@ -157,7 +162,7 @@ class Conta(Pessoa):
     
 class ContaCorrente():
     def __init__(self):
-        self._contaC = []
+        self._contaC = contaC
 
     def getContaC(self):
         return self._contaC
@@ -179,7 +184,7 @@ class ContaCorrente():
 class ContaPoupanca():
 
     def __init__(self):
-        self._contaP = []
+        self._contaP = ContaP
 
     def getContaP(self):
         return self._contaP
