@@ -1,5 +1,5 @@
 class Menu():
-
+	
     def __init__(self):
         self._opcao = None #atributo
 
@@ -21,29 +21,32 @@ class Menu():
         print("5 - Cobrar tarifa")
         print("6 - Pagar rendimento")
         print("7 - Sair do programa")
-        self.setOpcao(input (">"))
-        while True:
-            if self.getOpcao() == 1:
+        opcao = int((input (">")))
+        while opcao != 7:
+            if opcao == 1:
                 banco.criarConta()
-            elif self.getOpcao() == 2:
+            elif opcao == 2:
                 listar()
-            elif self.getOpcao() == 3:
+            elif opcao == 3:
                 banco.depositoConta()
-            elif self.getOpcao() == 4:
+            elif opcao == 4:
                 banco.saqueConta()
-            elif self.getOpcao() == 5:
+            elif opcao == 5:
                 contaCorrente.taxa()
-            elif self.getOpcao() == 6:
+            elif opcao == 6:
                 contaPoupanca.rendimento()
             elif self.getOpcao() == 7:
                 print("Tchau!! :)")
                 break
+            elif 1 < opcao > 7:
+            	print("Opção invalida! Tente novamente")
+            	opcao = int((input (">")))
 
 class Pessoa():
     
     #O programa deve ter uma classe Pessoa com os atributos Nome, Endereço e CPF:
 
-    def __init__(self, nome, endereco, cpf):
+    def init(self, nome, endereco, cpf):
         self._nome = nome
         self._endereco = endereco
         self._cpf = cpf
@@ -67,12 +70,12 @@ class Pessoa():
         self._cpf = cpf
 
 class Conta(Pessoa):
-
-    def __init__(self, nome, endereco, cpf, contaC, contaP, conta):
-        super().__init__(nome, endereco, cpf)
+	
+    def init(self, nome, endereco, cpf, contaC, contaP, conta):
+        super().init(nome, endereco, cpf)
         self._contaC = contaC
         self._contaP = contaP
-        self._conta = conta
+        self._conta = 
 
     def getConta(self):
         return self._conta
@@ -96,13 +99,14 @@ class Conta(Pessoa):
         nome = input("Digite o Nome: ")
         endereco = input("Digite o Endereço: ")
         cpf = input("Digite o CPF: ")
-        contaC = input("Informe o Saldo inicial da conta Corrente: ")
-        contaP = input("Informe o Saldo inicial da conta Poupança: ")
-        conta = contaC + contaP
-        contas = Conta(contaC, contaP, conta)
-        usuario = Pessoa(nome, endereco, cpf)
-        pessoa = usuario, contas
-        self.getConta().append(pessoa)
+        contaC = float(input("Informe o Saldo inicial da conta Corrente: "))
+        contaP = float(input("Informe o Saldo inicial da conta Poupança: "))
+        saldo = contaC + contaP
+        #contas = Conta(contaC, contaP, conta)
+        #usuario = Pessoa(nome, endereco, cpf)
+        #pessoa = usuario, contas
+        conta = nome, endereco, cpf, contaC, contaP, saldo
+        self.getConta().append(conta)
 
     def operacao(self):
         print ("Você deseja efetuar a operação em qual conta:")
