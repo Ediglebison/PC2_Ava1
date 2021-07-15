@@ -162,7 +162,7 @@ class Conta(Pessoa):
     
 class ContaCorrente():
     def __init__(self):
-        self._contaC = contaC
+        self._contaC = []
 
     def getContaC(self):
         return self._contaC
@@ -184,7 +184,7 @@ class ContaCorrente():
 class ContaPoupanca():
 
     def __init__(self):
-        self._contaP = ContaP
+        self._contaP = []
 
     def getContaP(self):
         return self._contaP
