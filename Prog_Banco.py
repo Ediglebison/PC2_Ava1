@@ -10,9 +10,9 @@ class Menu():
         self._opcao = opcao
 
     def painel(self):
-        #banco = Conta()
-        #contaCorrente = ContaCorrente()
-        #contaPoupanca = ContaPoupanca()
+        banco = Conta()
+        contaCorrente = ContaCorrente()
+        contaPoupanca = ContaPoupanca()
         while self.getOpcao() != 7:
             print("Selecione uma opção abaixo:")
             print("1 - Criar Conta")
@@ -24,17 +24,17 @@ class Menu():
             print("7 - Sair do programa")
             self.setOpcao(int((input (">"))))
             if self.getOpcao() == 1:
-                Conta.criarConta()
+                banco.criarConta()
             elif self.getOpcao() == 2:
-                Conta.listar()
+                banco.listar()
             elif self.getOpcao() == 3:
-                Conta.depositoConta()
+                banco.depositoConta()
             elif self.getOpcao() == 4:
-                Conta.saqueConta()
+                banco.saqueConta()
             elif self.getOpcao() == 5:
-                ContaCorrente.taxa()
+                contaCorrente.taxa()
             elif self.getOpcao() == 6:
-                ContaPoupanca.rendimento()
+                contaPoupanca.rendimento()
             elif self.getOpcao() == 7:
                 print("Tchau!! :)")
             else:
