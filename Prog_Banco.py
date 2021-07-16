@@ -10,162 +10,147 @@ class Menu():
         self._opcao = opcao
 
     def painel(self):
-        banco = Conta()
-        contaCorrente = ContaCorrente()
-        contaPoupanca = ContaPoupanca()
-        print("Selecione uma opção abaixo:")
-        print("1 - Criar Conta")
-        print("2 - Mostrar contas")
-        print("3 - Efetuar um deposito")
-        print("4 - Efetuar um Saque")
-        print("5 - Cobrar tarifa")
-        print("6 - Pagar rendimento")
-        print("7 - Sair do programa")
-        opcao = int((input (">")))
-        while opcao != 7:
-            if opcao == 1:
-                banco.criarConta()
-            elif opcao == 2:
-                listar()
-            elif opcao == 3:
-                banco.depositoConta()
-            elif opcao == 4:
-                banco.saqueConta()
-            elif opcao == 5:
-                contaCorrente.taxa()
-            elif opcao == 6:
-                contaPoupanca.rendimento()
+        #banco = Conta()
+        #contaCorrente = ContaCorrente()
+        #contaPoupanca = ContaPoupanca()
+        while self.getOpcao() != 7:
+            print("Selecione uma opção abaixo:")
+            print("1 - Criar Conta")
+            print("2 - Mostrar contas")
+            print("3 - Efetuar um deposito")
+            print("4 - Efetuar um Saque")
+            print("5 - Cobrar tarifa")
+            print("6 - Pagar rendimento")
+            print("7 - Sair do programa")
+            self.setOpcao(int((input (">"))))
+            if self.getOpcao() == 1:
+                Conta.criarConta()
+            elif self.getOpcao() == 2:
+                Conta.listar()
+            elif self.getOpcao() == 3:
+                Conta.depositoConta()
+            elif self.getOpcao() == 4:
+                Conta.saqueConta()
+            elif self.getOpcao() == 5:
+                ContaCorrente.taxa()
+            elif self.getOpcao() == 6:
+                ContaPoupanca.rendimento()
             elif self.getOpcao() == 7:
                 print("Tchau!! :)")
-                break
-            elif 1 < opcao > 7:
+            else:
             	print("Opção invalida! Tente novamente")
-            	opcao = int((input (">")))
 
 class Pessoa():
-    
-    #O programa deve ter uma classe Pessoa com os atributos Nome, Endereço e CPF:
 
-    def init(self, nome, endereco, cpf):
-        self._nome = nome
-        self._endereco = endereco
-        self._cpf = cpf
+    def __init__(self, nome, endereco, cpf):
+        self.nome = nome
+        self.endereco = endereco
+        self.cpf = cpf
     
     def getNome(self):
-        return self._nome
+        return self.nome
 
     def setNome(self, nome):
-        self._nome = nome
+        self.nome = nome
 
     def getEndereco(self):
-        return self._endereco
+        return self.endereco
 
     def setEndereco(self, endereco):
-        self._endereco = endereco
+        self.endereco = endereco
 
     def getCPF(self):
-        return self._cpf
+        return self.cpf
 
     def setCPF(self, cpf):
-        self._cpf = cpf
+        self.cpf = cpf
 
 class Conta(Pessoa):
 	
-    def init(self, nome, endereco, cpf, contaC, contaP, conta, saldo):
-        super().init(nome, endereco, cpf)
-        self._contaC = contaC
-        self._contaP = contaP
-        self._conta = conta
-        self._saldo = saldo
-
-    def getConta(self):
-        return self._conta
-
-    def setConta(self, conta):
-        self._conta = conta
-        
-    def getSaldo(self):
-        return self._saldo
-
-    def setSaldo(self, saldo):
-        self._conta = saldo
+    def __init__(self, nome, endereco, cpf, contaC, contaP):
+        super().__init__(nome, endereco, cpf)
+        self.contaC = contaC
+        self.contaP = contaP
 
     def getContaC(self):
-        return self._contaC
+        return self.contaC
 
     def setContaC(self, contaC):
-        self._contaC = contaC
+        self.contaC = contaC
 
     def getContaP(self):
-        return self._contaP
+        return self.contaP
 
     def setContaP(self, contaP):
-        self._contaP = contaP
+        self.contaP = contaP
 
     def criarConta(self):
-        nome = input("Digite o Nome: ")
-        endereco = input("Digite o Endereço: ")
-        cpf = input("Digite o CPF: ")
-        contaC = float(input("Informe o Saldo inicial da conta Corrente: "))
-        contaP = float(input("Informe o Saldo inicial da conta Poupança: "))
-        saldo = contaC + contaP
-        
-        conta = nome, endereco, cpf, contaC, contaP, saldo
-        self.setConta(Conta)
-        menuPainel.painel()
+        self.setNome(input("Digite o Nome: "))
+        self.setEndereco(input("Digite o Endereço: "))
+        self.setCPF(input("Digite o CPF: "))
+        self.setContaC(float(input("Informe o Saldo inicial da conta Corrente: ")))
+        self.setContaP(float(input("Informe o Saldo inicial da conta Poupança: ")))
 
-    def operacao(self):
-        print ("Você deseja efetuar a operação em qual conta:")
-        print ("1 - Conta corrente")
-        print ("2 - Conta Poupança")
-        while True:
-            opcao = input(">")
-            if opcao == "1":
-                Conta.saldo = Conta.saldoC
-            elif opcao == "2":
-                Conta.saldo = Conta.saldoP
+        
+
+    def operacao(menu):
+        menu = Menu()
+        saldo = 0
+        while menu.getOpcao() != 3:
+            print ("Você deseja efetuar a operação em qual conta:")
+            print ("1 - Conta corrente")
+            print ("2 - Conta Poupança")
+            print ("3 - Sair")
+            menu.setOpcao(input(">"))
+            if menu.getOpcao() == "1":
+                saldo = Conta.saldoC
+            elif menu.getOpcao() == "2":
+                saldo = Conta.saldoP
+            elif menu.getOpcao() == "3":
+                print("Saindo...")
             else: 
                 print ("erro")
 
     def confirmaOp(self, operacao):
-        if operacao.opcao == "1":
-            Conta.saldoC = Conta.saldo
-        elif operacao.opcao == "2":
-            Conta.saldoP = Conta.saldo
+        if operacao.getOpcao == "1":
+            Conta.saldoC = Conta.operacao().saldo
+        elif operacao.getOpcao == "2":
+            Conta.saldoP = Conta.operacao().saldo
 
     def depositoConta(self):
-        listar()
-        i_conta = int(input("ID do contato: "))
-        Conta.operacao()[i_conta]
         deposito = float(input("Informe o valor a ser depositado na conta: "))
         while deposito < 0:
             print ("Valor incorreto!!")
             deposito = float(input("Informe o valor a ser depositado na conta: "))
-        Conta.saldo[i_conta] += deposito
-        Conta.confirmaOp()[i_conta]
-        menuPainel.painel()
+        Conta.operacao()
+        Conta.operacao().saldo += deposito
+        Conta.confirmaOp()
         
     def saqueConta(self):
-        listar()
-        i_conta = int(input("ID do contato: "))
-        Conta.operacao()[i_conta]
         saque = float(input("Informe o valor a ser retirado na conta: "))
         while saque < 0:
             print ("Valor incorreto!!")
             saque = float(input("Informe o valor a ser retirado da conta: "))
-        Conta.saldo[i_conta] += saque
-        Conta.confirmaOp()[i_conta]
-        menuPainel.painel()
+        Conta.operacao()
+        Conta.operacao().saldo += saque
+        Conta.confirmaOp()
 
-    '''
-    O programa deve ter uma classe Conta com os atributos Pessoa (objeto da classe
-    Pessoa) e Saldo, e os métodos para fazer o depósito e retirada da conta (ambos
-    fazem mudança no saldo da conta):
-    '''
+    def listar(criarConta):
+        acc = Conta()
+        print(acc.account)
+
+        acc = Conta()
+        print("Nome: "+ acc.nome)
+        print("Endereço: "+ acc.endereco)
+        print("CPF: "+ acc.cpf)
+        print("Saldo C. Corrente: "+ acc.contaC)
+        print("Saldo C. Poupança: "+ acc.contaP)
+
     
-class ContaCorrente():
-    def __init__(self):
-        self._contaC = []
+class ContaCorrente(Conta):
+    def __init__(self, contaC):
+        #self._contaC = []
+        Conta.init(contaC)
 
     def getContaC(self):
         return self._contaC
@@ -174,21 +159,14 @@ class ContaCorrente():
         self._contaC = contaC
 
     def taxa(self):
-        listar()
-        i_conta = int(input("ID do contato: "))
-        tarifa = 10
-        ContaCorrente.contaC[i_conta] -= tarifa
-        menuPainel.painel()
+        return self.contaC - 10
 
-    """
-    O programa deve ter uma classe ContaCorrente que é uma Conta (herança) e deve
-    possuir o método para pagar a taxa da conta corrente (diminuir o saldo):
-    """
     
-class ContaPoupanca():
+class ContaPoupanca(Conta):
 
-    def __init__(self):
-        self._contaP = []
+    def __init__(self, contaP):
+        #self._contaP = []
+        Conta.init(contaP)
 
     def getContaP(self):
         return self._contaP
@@ -197,39 +175,8 @@ class ContaPoupanca():
         self._contaP = contaP
 
     def rendimento(self):
-        listar()
-        i_conta = int(input("ID do contato: "))
-        rende = 1.03
-        ContaPoupanca.contaP[i_conta] *= rende
-        menuPainel.painel()
+        return self.contaP * 1.03
 
-def listar(Conta):
-    
-    for i, Conta in enumerate(self.getConta()):
-        print("Contato ", i)
-        print("Nome: "+Conta.getNome())
-        print("Endereco: "+Conta.getEndereco())
-        print("CPF: "+Conta.getCPF())
-        print("Saldo - C: "+Conta.getContaC)
-        print("Saldo - P: "+Conta.getContaP)
-        print("Saldo Total: "+Conta.getConta)
-        menuPainel.painel()
 
-    '''
-    O programa deve ter uma classe ContaPoupanca que é uma Conta (herança) e deve
-    possuir o método para adicionar o rendimento da poupança (aumentar o saldo):
-    '''
 menuPainel = Menu()
 menuPainel.painel()
-
-""" 
-1 – Criar um objeto do tipo pessoa e mostrar os detalhes desse objeto:
-2 – Criar um objeto do tipo conta corrente e um objeto do tipo conta poupança e
-ligar esses objetos uma pessoa:
-3 – Fazer depósitos e saques na conta corrente, mostrar o saldo, assim como poder
-pagar a taxa da conta corrente:
-4 – Fazer depósitos e saques na conta poupança, mostrar o saldo, assim como
-poder adicionar o rendimento da conta poupança:
-Você pode adicionar todas as informações diretamente no código (ou solicitar que
-o usuário as digite) para demonstrar todas as funcionalidades:
- """
