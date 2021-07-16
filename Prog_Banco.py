@@ -1,12 +1,12 @@
 class Menu():
 	
     def __init__(self):
-        self._opcao = None #atributo
+        self._opcao = None
 
-    def getOpcao(self): #pega/retornar o valor do atributo
+    def getOpcao(self): 
         return self._opcao
 
-    def setOpcao(self, opcao): # atribuir um valor ao atributo
+    def setOpcao(self, opcao): 
         self._opcao = opcao
 
     def painel(self):
