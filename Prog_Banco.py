@@ -109,9 +109,10 @@ class Conta(Pessoa):
         contaC = float(input("Informe o Saldo inicial da conta Corrente: "))
         contaP = float(input("Informe o Saldo inicial da conta Poupança: "))
         saldo = contaC + contaP
-
+        
         conta = nome, endereco, cpf, contaC, contaP, saldo
-        self.getConta().append(conta)
+        self.setConta(Conta)
+        menuPainel.painel()
 
     def operacao(self):
         print ("Você deseja efetuar a operação em qual conta:")
@@ -142,7 +143,8 @@ class Conta(Pessoa):
             deposito = float(input("Informe o valor a ser depositado na conta: "))
         Conta.saldo[i_conta] += deposito
         Conta.confirmaOp()[i_conta]
-
+        menuPainel.painel()
+        
     def saqueConta(self):
         listar()
         i_conta = int(input("ID do contato: "))
@@ -153,6 +155,7 @@ class Conta(Pessoa):
             saque = float(input("Informe o valor a ser retirado da conta: "))
         Conta.saldo[i_conta] += saque
         Conta.confirmaOp()[i_conta]
+        menuPainel.painel()
 
     '''
     O programa deve ter uma classe Conta com os atributos Pessoa (objeto da classe
@@ -175,6 +178,7 @@ class ContaCorrente():
         i_conta = int(input("ID do contato: "))
         tarifa = 10
         ContaCorrente.contaC[i_conta] -= tarifa
+        menuPainel.painel()
 
     """
     O programa deve ter uma classe ContaCorrente que é uma Conta (herança) e deve
@@ -197,18 +201,19 @@ class ContaPoupanca():
         i_conta = int(input("ID do contato: "))
         rende = 1.03
         ContaPoupanca.contaP[i_conta] *= rende
+        menuPainel.painel()
 
-def listar(self):
+def listar(Conta):
     
-    for i, pessoa in enumerate(self.getConta()):
+    for i, Conta in enumerate(self.getConta()):
         print("Contato ", i)
-        print("Nome: "+pessoa.getNome())
-        print("Endereco: "+pessoa.getEndereco())
-        print("CPF: "+pessoa.getCPF())
-        print("Saldo - C: "+pessoa.saldoC)
-        print("Saldo - P: "+pessoa.saldoP)
-        print("Saldo Total: "+pessoa.conta)
-        
+        print("Nome: "+Conta.getNome())
+        print("Endereco: "+Conta.getEndereco())
+        print("CPF: "+Conta.getCPF())
+        print("Saldo - C: "+Conta.getContaC)
+        print("Saldo - P: "+Conta.getContaP)
+        print("Saldo Total: "+Conta.getConta)
+        menuPainel.painel()
 
     '''
     O programa deve ter uma classe ContaPoupanca que é uma Conta (herança) e deve
