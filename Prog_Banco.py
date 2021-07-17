@@ -1,4 +1,4 @@
-class Menu():
+class Menu:
 	
     def __init__(self):
         self._opcao = None
@@ -10,9 +10,9 @@ class Menu():
         self._opcao = opcao
 
     def painel(self):
-        banco = Conta()
-        contaCorrente = ContaCorrente()
-        contaPoupanca = ContaPoupanca()
+        banco = Conta("Ediglebion", "Rua bla bla bla", "12345678910", 210.70, 300)
+        contaCorrente = ContaCorrente(210.70)
+        contaPoupanca = ContaPoupanca(300)
         while self.getOpcao() != 7:
             print("Selecione uma opção abaixo:")
             print("1 - Criar Conta")
@@ -40,7 +40,7 @@ class Menu():
             else:
             	print("Opção invalida! Tente novamente")
 
-class Pessoa():
+class Pessoa:
 
     def __init__(self, nome, endereco, cpf):
         self.nome = nome
@@ -65,24 +65,38 @@ class Pessoa():
     def setCPF(self, cpf):
         self.cpf = cpf
 
-class Conta(Pessoa):
-	
-    def __init__(self, nome, endereco, cpf, contaC, contaP):
-        super().__init__(nome, endereco, cpf)
+class ContaCorrente:
+    def __init__(self, contaC):
         self.contaC = contaC
-        self.contaP = contaP
-
+    
     def getContaC(self):
         return self.contaC
 
     def setContaC(self, contaC):
         self.contaC = contaC
 
+    def taxa(self):
+        return self.contaC - 10
+
+class ContaPoupanca:
+    def __init__(self, contaP):
+        self.contaP = contaP
+    
     def getContaP(self):
         return self.contaP
 
     def setContaP(self, contaP):
         self.contaP = contaP
+
+    def rendimento(self):
+        return self.contaP * 1.03
+
+class Conta(Pessoa, ContaCorrente, ContaPoupanca):
+	
+    def __init__(self, nome, endereco, cpf, contaC, contaP):
+        Pessoa.__init__(nome, endereco, cpf)
+        ContaCorrente.__init__(contaC)
+        ContaPoupanca.__init__(contaP)
 
     def criarConta(self):
         self.setNome(input("Digite o Nome: "))
@@ -90,8 +104,6 @@ class Conta(Pessoa):
         self.setCPF(input("Digite o CPF: "))
         self.setContaC(float(input("Informe o Saldo inicial da conta Corrente: ")))
         self.setContaP(float(input("Informe o Saldo inicial da conta Poupança: ")))
-
-        
 
     def operacao(menu):
         menu = Menu()
@@ -145,38 +157,6 @@ class Conta(Pessoa):
         print("CPF: "+ acc.cpf)
         print("Saldo C. Corrente: "+ acc.contaC)
         print("Saldo C. Poupança: "+ acc.contaP)
-
-    
-class ContaCorrente(Conta):
-    def __init__(self, contaC):
-        #self._contaC = []
-        Conta.init(contaC)
-
-    def getContaC(self):
-        return self._contaC
-
-    def setContaC(self, contaC):
-        self._contaC = contaC
-
-    def taxa(self):
-        return self.contaC - 10
-
-    
-class ContaPoupanca(Conta):
-
-    def __init__(self, contaP):
-        #self._contaP = []
-        Conta.init(contaP)
-
-    def getContaP(self):
-        return self._contaP
-
-    def setContaP(self, contaP):
-        self._contaP = contaP
-
-    def rendimento(self):
-        return self.contaP * 1.03
-
 
 menuPainel = Menu()
 menuPainel.painel()
