@@ -1,5 +1,3 @@
-
-
 class Pessoa():
 
     def __init__(self, nome, endereco, cpf):
@@ -54,37 +52,37 @@ class ContaPoupanca():
 class Conta(Pessoa, ContaCorrente, ContaPoupanca):
 
     def __init__(self, nome, endereco, cpf, contaC, contaP):
-        Pessoa.__init__(nome, endereco, cpf)
-        ContaCorrente.__init__(contaC)
-        ContaPoupanca.__init__(contaP)
+        Pessoa.__init__(self, nome, endereco, cpf)
+        ContaCorrente.__init__(self, contaC)
+        ContaPoupanca.__init__(self, contaP)
 
 
     def criarConta(self):
-        self.setNome(input("Digite o Nome: "))
-        self.setEndereco(input("Digite o Endereço: "))
-        self.setCPF(input("Digite o CPF: "))
-        self.setContaC(float(input("Informe o Saldo inicial da conta Corrente: ")))
-        self.setContaP(float(input("Informe o Saldo inicial da conta Poupança: ")))
+        self.setNome("Ediglebison")
+        self.setEndereco("Rua bla bla bla")
+        self.setCPF(12345678910)
+        self.setContaC(21390)
+        self.setContaP(30000)
+        print("Conta criada!")
 
-    def operacao(self, menu):
+    def operacao(self):
         menu = Menu()
-        saldo = 0
-        while menu.getOpcao() != 3:
+        while menu.getOpcao() != "3":
             print ("Você deseja efetuar a operação em qual conta:")
             print ("1 - Conta corrente")
             print ("2 - Conta Poupança")
             print ("3 - Sair")
             menu.setOpcao(input(">"))
             if menu.getOpcao() == "1":
-                saldo = Conta.saldoC
+                saldo = 21390
             elif menu.getOpcao() == "2":
-                saldo = Conta.saldoP
+                saldo = 30000
             elif menu.getOpcao() == "3":
                 print("Saindo...")
             else: 
                 print ("erro")
 
-    def confirmaOp(self, menu):
+    def confirmaOp(self):
         menu = Menu()
         if menu.getOpcao == "1":
             Conta.saldoC = Conta.operacao().saldo
@@ -96,8 +94,12 @@ class Conta(Pessoa, ContaCorrente, ContaPoupanca):
         while deposito < 0:
             print ("Valor incorreto!!")
             deposito = float(input("Informe o valor a ser depositado na conta: "))
-        Conta.operacao()
-        Conta.operacao().saldo += deposito
+        conta = Conta("Ediglebison", "Rua bla bla bla", "12345678910", 21390, 30000) 
+        menu = Menu()
+        conta.operacao()
+        if menu.getOpcao() != "3":
+            conta.operacao().saldo += deposito
+            print(conta.operacao().saldo)
         Conta.confirmaOp()
         
     def saqueConta(self):
@@ -105,17 +107,22 @@ class Conta(Pessoa, ContaCorrente, ContaPoupanca):
         while saque < 0:
             print ("Valor incorreto!!")
             saque = float(input("Informe o valor a ser retirado da conta: "))
-        Conta.operacao()
-        Conta.operacao().saldo += saque
+        conta = Conta("Ediglebison", "Rua bla bla bla", "12345678910", 21390, 30000) 
+        menu = Menu()
+        conta.operacao()
+        if menu.getOpcao() != "3":
+            conta.operacao().saldo += saque
+            print(conta.operacao().saldo)
+        conta.operacao().saldo += saque
         Conta.confirmaOp()
 
     def listar(criarConta):
-        acc = Conta()
+        acc = Conta("Ediglebison", "Rua bla bla bla", "12345678910", 21390, 30000)
         print("Nome: "+ acc.getNome())
         print("Endereço: "+ acc.getEndereco())
-        print("CPF: "+ acc.getCPF90)
-        print("Saldo C. Corrente: "+ acc.getContaC())
-        print("Saldo C. Poupança: "+ acc.getContaP())
+        print("CPF: "+ acc.getCPF())
+        print("Saldo C. Corrente: "+ str(acc.getContaC()))
+        print("Saldo C. Poupança: "+ str(acc.getContaP()))
 
 class Menu():
 	
@@ -129,7 +136,7 @@ class Menu():
         self._opcao = opcao
 
     def painel(self):
-        banco = Conta("Ediglebion", "Rua bla bla bla", "12345678910", 21070, 300)
+        banco = Conta("Ediglebison", "Rua bla bla bla", "12345678910", 21390, 30000)
         contaCorrente = ContaCorrente(21070)
         contaPoupanca = ContaPoupanca(300)
         while self.getOpcao() != 7:
@@ -152,8 +159,10 @@ class Menu():
                 banco.saqueConta()
             elif self.getOpcao() == 5:
                 contaCorrente.taxa()
+                print("Taxa paga!")
             elif self.getOpcao() == 6:
                 contaPoupanca.rendimento()
+                print("Rendimento pago!")
             elif self.getOpcao() == 7:
                 print("Tchau!! :)")
             else:
