@@ -55,74 +55,76 @@ class Conta(Pessoa, ContaCorrente, ContaPoupanca):
         Pessoa.__init__(self, nome, endereco, cpf)
         ContaCorrente.__init__(self, contaC)
         ContaPoupanca.__init__(self, contaP)
+        self.saldo = 0
 
 
     def criarConta(self):
-        self.setNome("Ediglebison")
-        self.setEndereco("Rua bla bla bla")
-        self.setCPF(12345678910)
-        self.setContaC(21390)
-        self.setContaP(30000)
+        nome = "Ediglebison"
+        self.setNome(nome)
+        endereco = "Rua bla bla bla"
+        self.setEndereco(endereco)
+        cpf = "12345678910"
+        self.setCPF(cpf)
+        contaC = 21390
+        self.setContaC(contaC)
+        contaP = 30000
+        self.setContaP(contaP)
         print("Conta criada!")
 
     def operacao(self):
         menu = Menu()
-        while menu.getOpcao() != "3":
-            print ("Você deseja efetuar a operação em qual conta:")
-            print ("1 - Conta corrente")
-            print ("2 - Conta Poupança")
-            print ("3 - Sair")
-            menu.setOpcao(input(">"))
-            if menu.getOpcao() == "1":
-                saldo = 21390
-            elif menu.getOpcao() == "2":
-                saldo = 30000
-            elif menu.getOpcao() == "3":
-                print("Saindo...")
-            else: 
-                print ("erro")
+        print ("Você deseja efetuar a operação em qual conta:")
+        print ("1 - Conta corrente")
+        print ("2 - Conta Poupança")
+        print ("3 - Sair")
+        menu.setOpcao(int((input (">"))))
+        if menu.getOpcao() == 1:
+            Conta.saldo = 21390
+        elif menu.getOpcao() == 2:
+            Conta.saldo = 30000
+        elif menu.getOpcao() == 3:
+            print("Saindo...")
 
     def confirmaOp(self):
         menu = Menu()
         if menu.getOpcao == "1":
-            Conta.saldoC = Conta.operacao().saldo
+            Conta.saldoC = Conta.saldo
         elif menu.getOpcao == "2":
-            Conta.saldoP = Conta.operacao().saldo
+            Conta.saldoP = Conta.saldo
 
     def depositoConta(self):
-        deposito = float(input("Informe o valor a ser depositado na conta: "))
+        deposito = int(input("Informe o valor a ser depositado na conta: "))
         while deposito < 0:
             print ("Valor incorreto!!")
-            deposito = float(input("Informe o valor a ser depositado na conta: "))
+            deposito = int(input("Informe o valor a ser depositado na conta: "))
         conta = Conta("Ediglebison", "Rua bla bla bla", "12345678910", 21390, 30000) 
         menu = Menu()
         conta.operacao()
-        if menu.getOpcao() != "3":
-            conta.operacao().saldo += deposito
-            print(conta.operacao().saldo)
-        Conta.confirmaOp()
+        if menu.getOpcao() != 3:
+            conta.saldo = int(conta.saldo) + int(deposito)
+            print(conta.saldo)
+        conta.confirmaOp()
         
     def saqueConta(self):
-        saque = float(input("Informe o valor a ser retirado na conta: "))
+        saque = int(input("Informe o valor a ser retirado na conta: "))
         while saque < 0:
             print ("Valor incorreto!!")
-            saque = float(input("Informe o valor a ser retirado da conta: "))
+            saque = int(input("Informe o valor a ser retirado da conta: "))
         conta = Conta("Ediglebison", "Rua bla bla bla", "12345678910", 21390, 30000) 
         menu = Menu()
         conta.operacao()
         if menu.getOpcao() != "3":
-            conta.operacao().saldo += saque
-            print(conta.operacao().saldo)
-        conta.operacao().saldo += saque
-        Conta.confirmaOp()
+            conta.saldo = int(conta.saldo) - int(saque)
+            print(conta.saldo)
+        conta.confirmaOp()
 
     def listar(criarConta):
         acc = Conta("Ediglebison", "Rua bla bla bla", "12345678910", 21390, 30000)
-        print("Nome: "+ acc.getNome())
-        print("Endereço: "+ acc.getEndereco())
-        print("CPF: "+ acc.getCPF())
-        print("Saldo C. Corrente: "+ str(acc.getContaC()))
-        print("Saldo C. Poupança: "+ str(acc.getContaP()))
+        print("Nome: "+ acc.nome)
+        print("Endereço: "+ acc.endereco)
+        print("CPF: "+ acc.cpf)
+        print("Saldo C. Corrente: "+ str(acc.contaC))
+        print("Saldo C. Poupança: "+ str(acc.contaP))
 
 class Menu():
 	
